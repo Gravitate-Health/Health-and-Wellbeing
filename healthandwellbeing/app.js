@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 const app = express();
 
 //const mongouri = 'mongodb+srv://user:pass123';
-const mongouri = 'mongodb://localhost:27017';
+const mongouri = process.env.DB_URL;
 
 try {
   mongoose.connect(mongouri, {
