@@ -1,10 +1,9 @@
 
-Gravitate-Health G-Lens: Health And Wellbeing Interface.
+Gravitate-Health G-Lens: Health And Wellbeing File Storage System.
 =================================================
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-APIs generated using LoopBack 4 CLI with the  initial project layout.
 
 Table of contents
 -----------------
@@ -24,10 +23,9 @@ Table of contents
 
 Introduction
 ------------
-This repository contains the configuration and deployment files needed for the interface of the "G-Lens: Health And Wellbeing" module.
-This module handles medication information models, following the HL7-FHIR interoperability standard.
+This repository contains the configuration and deployment files needed for the File Storage System of the "G-Lens: Health And Wellbeing" module.
 
-This application is generated using LoopBack 4 CLI with the initial project layout.
+This application is generated using Express, Multer and GridFS.
 
 This readme will help the reader to deploy the system, but also to understand the configuration and be able to edit/expand it.
 
@@ -36,6 +34,9 @@ Installation
 ### Local installation
 
 #### Step 1: Clone the workspace
+
+It is necessary to have previously cloned the parent repository.
+
 ```bash
 git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
 ```
@@ -68,46 +69,23 @@ Inside the directory, run the following command:
 npm start
 ```
 ### Step 2: Access through the browser
-Open http://127.0.0.1:3000 in your browser, preferably Google Chrome, in private or incognito mode.
+As this service itself has no interface, you can test the different endpoints in a program such as Postman or similar.
 
 ### Step 3:  Different endpoints
 
-Some of the most useful enpoints are listed below:
 
-POST request, adds a new object to the G-Lens DB: 
+POST request, adds a new file to the G-Lens DB: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing/upload
 
-GET request, returns the count of the objects stored in the DB:
+    You should receive output to the above request as: File uploaded successfully
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/count
+GET request, returns a single file with NAME <filename>: 
 
-GET request, returns the list of the objects stored in the DB: 
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing/fileinfo/<filename>
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    The output should be the file you are calling.
 
-PATCH request, updates the object that matches the body of the request: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
-
-GET request, returns a single object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-PATCH request, updates the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-PUT request, replaces the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-DEL request, deletes the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-
-For further details check the [openapi](openapi.json)
 
 Known issues and limitations
 ----------------------------
@@ -120,14 +98,10 @@ In case you find a problem or you need extra help, please use the issues tab to 
 
 Also you can check the following documentation
 
-### Loopback documentation
+### Grid FS Documentation
 
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
+Please check out [GridFS documentation](https://www.mongodb.com/docs/drivers/node/current/fundamentals/gridfs/) to
 understand how you can continue to add features to this application.
-
-### FHIR Model
-
-Please check out the [FHIR Attachment Model](https://build.fhir.org/datatypes.html#attachment), used for the definition of Loopback Model
 
 Contributing
 ------------
@@ -160,6 +134,4 @@ Authors and history
 
 Acknowledgments
 ---------------
-
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
-
+- [GridFS documentation](https://www.mongodb.com/docs/drivers/node/current/fundamentals/gridfs/)
