@@ -1,0 +1,739 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "healthandwellbeinginterface",
+    "version": "0.0.1",
+    "description": "Module for Health and Wellbeing",
+    "contact": {
+      "name": "oansotegui",
+      "email": "oscaransotegui@gmail.com"
+    }
+  },
+  "paths": {
+    "/health-and-wellbeings/count": {
+      "get": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "count",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "HealthAndWellbeing model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "HealthAndWellbeing.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<HealthAndWellbeing>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "HealthAndWellbeingController.count"
+      }
+    },
+    "/health-and-wellbeings/{id}": {
+      "put": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "HealthAndWellbeing PUT success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HealthAndWellbeing"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "HealthAndWellbeingController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "HealthAndWellbeing PATCH success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HealthAndWellbeingPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "HealthAndWellbeingController.updateById"
+      },
+      "get": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "findById",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "HealthAndWellbeing model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthAndWellbeingWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthAndWellbeing.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "HealthAndWellbeingController.findById"
+      },
+      "delete": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "HealthAndWellbeing DELETE success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "HealthAndWellbeingController.deleteById"
+      }
+    },
+    "/health-and-wellbeings": {
+      "post": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "create",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "HealthAndWellbeing model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthAndWellbeing"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewHealthAndWellbeing"
+              }
+            }
+          }
+        },
+        "operationId": "HealthAndWellbeingController.create"
+      },
+      "patch": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "HealthAndWellbeing PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "HealthAndWellbeing.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<HealthAndWellbeing>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HealthAndWellbeingPartial"
+              }
+            }
+          }
+        },
+        "operationId": "HealthAndWellbeingController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "HealthAndWellbeingController",
+        "x-operation-name": "find",
+        "tags": [
+          "HealthAndWellbeingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of HealthAndWellbeing model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HealthAndWellbeingWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthAndWellbeing.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "HealthAndWellbeingController.find"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "HealthAndWellbeing": {
+        "title": "HealthAndWellbeing",
+        "type": "object",
+        "properties": {
+          "internalId": {
+            "type": "string"
+          },
+          "contentType": {},
+          "language": {},
+          "data": {},
+          "url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "hash": {},
+          "title": {
+            "type": "string"
+          },
+          "creation": {},
+          "height": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "frames": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      },
+      "NewHealthAndWellbeing": {
+        "title": "NewHealthAndWellbeing",
+        "type": "object",
+        "description": "(tsType: Omit<HealthAndWellbeing, 'internalID'>, schemaOptions: { title: 'NewHealthAndWellbeing', exclude: [ 'internalID' ] })",
+        "properties": {
+          "internalId": {
+            "type": "string"
+          },
+          "contentType": {},
+          "language": {},
+          "data": {},
+          "url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "hash": {},
+          "title": {
+            "type": "string"
+          },
+          "creation": {},
+          "height": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "frames": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true,
+        "x-typescript-type": "Omit<HealthAndWellbeing, 'internalID'>"
+      },
+      "HealthAndWellbeingWithRelations": {
+        "title": "HealthAndWellbeingWithRelations",
+        "type": "object",
+        "description": "(tsType: HealthAndWellbeingWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "internalId": {
+            "type": "string"
+          },
+          "contentType": {},
+          "language": {},
+          "data": {},
+          "url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "hash": {},
+          "title": {
+            "type": "string"
+          },
+          "creation": {},
+          "height": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "frames": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true,
+        "x-typescript-type": "HealthAndWellbeingWithRelations"
+      },
+      "HealthAndWellbeingPartial": {
+        "title": "HealthAndWellbeingPartial",
+        "type": "object",
+        "description": "(tsType: Partial<HealthAndWellbeing>, schemaOptions: { partial: true })",
+        "properties": {
+          "internalId": {
+            "type": "string"
+          },
+          "contentType": {},
+          "language": {},
+          "data": {},
+          "url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "hash": {},
+          "title": {
+            "type": "string"
+          },
+          "creation": {},
+          "height": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "frames": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true,
+        "x-typescript-type": "Partial<HealthAndWellbeing>"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "HealthAndWellbeing.Filter": {
+        "type": "object",
+        "title": "HealthAndWellbeing.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "internalId": {
+                    "type": "boolean"
+                  },
+                  "contentType": {
+                    "type": "boolean"
+                  },
+                  "language": {
+                    "type": "boolean"
+                  },
+                  "data": {
+                    "type": "boolean"
+                  },
+                  "url": {
+                    "type": "boolean"
+                  },
+                  "size": {
+                    "type": "boolean"
+                  },
+                  "hash": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "creation": {
+                    "type": "boolean"
+                  },
+                  "height": {
+                    "type": "boolean"
+                  },
+                  "width": {
+                    "type": "boolean"
+                  },
+                  "frames": {
+                    "type": "boolean"
+                  },
+                  "duration": {
+                    "type": "boolean"
+                  },
+                  "pages": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "internalId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "HealthAndWellbeing.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<HealthAndWellbeing>"
+      },
+      "HealthAndWellbeing.Filter1": {
+        "type": "object",
+        "title": "HealthAndWellbeing.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "HealthAndWellbeing.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "internalId": {
+                    "type": "boolean"
+                  },
+                  "contentType": {
+                    "type": "boolean"
+                  },
+                  "language": {
+                    "type": "boolean"
+                  },
+                  "data": {
+                    "type": "boolean"
+                  },
+                  "url": {
+                    "type": "boolean"
+                  },
+                  "size": {
+                    "type": "boolean"
+                  },
+                  "hash": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "creation": {
+                    "type": "boolean"
+                  },
+                  "height": {
+                    "type": "boolean"
+                  },
+                  "width": {
+                    "type": "boolean"
+                  },
+                  "frames": {
+                    "type": "boolean"
+                  },
+                  "duration": {
+                    "type": "boolean"
+                  },
+                  "pages": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "internalId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "HealthAndWellbeing.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<HealthAndWellbeing>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}
