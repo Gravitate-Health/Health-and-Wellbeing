@@ -7,17 +7,22 @@ Gravitate-Health G-Lens: Health & Wellbeing.
 Table of contents
 -----------------
 
-* [Introduction](#introduction)
-* [Installation](#installation)
-    - [Local installation](#local-installation)
-    - [Kubernetes deployment](#kubernetes-deployment)
-* [Usage](#usage)
-* [Known issues and limitations](#known-issues-and-limitations)
-* [Getting help](#getting-help)
-* [Contributing](#contributing)
-* [License](#license)
-* [Authors and history](#authors-and-history)
-* [Acknowledgments](#acknowledgments)
+- [Gravitate-Health G-Lens: Health & Wellbeing.](#gravitate-health-g-lens-health--wellbeing)
+  - [Table of contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Run the application](#run-the-application)
+    - [Endpoints](#endpoints)
+  - [Known issues and limitations](#known-issues-and-limitations)
+  - [Getting help](#getting-help)
+    - [Loopback documentation](#loopback-documentation)
+    - [FHIR Model](#fhir-model)
+    - [Grid FS Documentation](#grid-fs-documentation)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Authors and history](#authors-and-history)
+  - [Acknowledgments](#acknowledgments)
 
 
 Introduction
@@ -136,6 +141,7 @@ limitations under the License.
 Authors and history
 ---------------------------
 - Óscar Ansótegui ([@oansotegui](https://github.com/oansotegui))
+- Álvaro Belmar ([@abelmarm](https://github.com/abelmarm))
 
 Acknowledgments
 ---------------

@@ -247,6 +247,7 @@ limitations under the License.
 Authors and history
 ---------------------------
 - Óscar Ansótegui ([@oansotegui](https://github.com/oansotegui))
+- Álvaro Belmar ([@abelmarm](https://github.com/abelmarm))
 
 Acknowledgments
 ---------------
