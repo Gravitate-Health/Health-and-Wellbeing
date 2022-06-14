@@ -12,6 +12,7 @@ export declare class HealthAndWellbeingDataSource extends juggler.DataSource imp
         password: string;
         database: string;
         useNewUrlParser: boolean;
+        protocol: string;
     };
     constructor(dsConfig?: object);
 }

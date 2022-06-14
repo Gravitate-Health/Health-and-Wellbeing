@@ -1,10 +1,8 @@
 
-Gravitate-Health G-Lens: Health And Wellbeing Interface.
+Gravitate-Health G-Lens: Health & Wellbeing.
 =================================================
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
-APIs generated using LoopBack 4 CLI with the  initial project layout.
 
 Table of contents
 -----------------
@@ -24,90 +22,66 @@ Table of contents
 
 Introduction
 ------------
-This repository contains the configuration and deployment files needed for the interface of the "G-Lens: Health And Wellbeing" module.
-This module handles medication information models, following the HL7-FHIR interoperability standard.
+This repository contains the configuration and deployment files needed for the "G-Lens: Health & Wellbeing" module.
+This module handles File Storage System, with an Attachment Model, following the HL7-FHIR interoperability standard.
 
-This application is generated using LoopBack 4 CLI with the initial project layout.
+This repository is made up of an application generated using LoopBack 4 CLI with the initial project layout (healthandwellbeinginterface),
+and a File Storage System made with Express and GridFS (healthandwellbeing).
+
+Therefore, the Health and Wellbeing module is composed of an interface (healthandwellbeinginterface) where the models 
+are stored, and a backend service of this interface, which is where the files are stored (healthandwellbeing).
+
+The usage and call to each one of the two services mentioned above must be made separately.
 
 This readme will help the reader to deploy the system, but also to understand the configuration and be able to edit/expand it.
 
 Installation
 ------------
-### Local installation
 
-#### Step 1: Clone the workspace
-```bash
-git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
-```
-#### Step 2: Install all the dependencies
+For the correct use of this module it is necessary to install each of the services individually.
 
-```bash
-cd Health-and-Wellbeing
-cd healthandwellbeininterface
-```
+You can check the following guides for this purpose.
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in package.json are changed, run the following command:
-
-```bash
-npm install
-```
-
-To only install resolved dependencies in package-lock.json:
-```bash
-npm ci
-```
-
-### Kubernetes deployment
+- [File Storage README (healthandwellbeing)](./healthandwellbeing/README.md).
+- [Interface README (healthandwellbeinginterface)](./healthandwellbeinginterface/README.md).
 
 Usage
 -----
-### Step 1: Run the application
+
+At the moment the services work separately, with healthandwellbeing being the File Storage System, and healthandwellbeinginterface being 
+the API that stores the [FHIR models](https://build.fhir.org/datatypes.html#attachment) associated with the files.
+
+### Run the application
+
+For each of the directories, perform the following step on different consoles.
+
 Inside the directory, run the following command:
+
 ```bash
 npm start
 ```
-### Step 2: Access through the browser
-Open http://127.0.0.1:3000 in your browser, preferably Google Chrome, in private or incognito mode.
+### Endpoints
 
-### Step 3:  Different endpoints
+To UPLOAD a file:
 
-Some of the most useful enpoints are listed below:
-
-POST request, adds a new object to the G-Lens DB: 
-
+- POST request to the File Storage System, adds a new file to the G-Lens DB:
+  ```bash
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing/upload
+  ```
+- POST request to the Interface, adds a new FHIR Model to the G-Lens DB:
+  ```bash
     https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+  ```
 
-GET request, returns the count of the objects stored in the DB:
+To DOWNLOAD a file:
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/count
-
-GET request, returns the list of the objects stored in the DB: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
-
-PATCH request, updates the object that matches the body of the request: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
-
-GET request, returns a single object with ID <id>: 
-
+- GET request to the File Storage System, returns a single file with NAME <filename>:
+  ```bash
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing/fileinfo/<filename>
+  ```
+  ```bash
     https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-PATCH request, updates the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-PUT request, replaces the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-DEL request, deletes the object with ID <id>: 
-
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
-
-
-For further details check the [openapi](openapi.json)
+  ```
 
 Known issues and limitations
 ----------------------------
@@ -128,6 +102,11 @@ understand how you can continue to add features to this application.
 ### FHIR Model
 
 Please check out the [FHIR Attachment Model](https://build.fhir.org/datatypes.html#attachment), used for the definition of Loopback Model
+
+### Grid FS Documentation
+
+Please check out [GridFS documentation](https://www.mongodb.com/docs/drivers/node/current/fundamentals/gridfs/) to
+understand how you can continue to add features to this application.
 
 Contributing
 ------------
@@ -160,6 +139,9 @@ Authors and history
 
 Acknowledgments
 ---------------
+
+- [GridFS documentation](https://www.mongodb.com/docs/drivers/node/current/fundamentals/gridfs/)
+- [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/)
 
 [![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
 
