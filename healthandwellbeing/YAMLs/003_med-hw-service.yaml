@@ -17,7 +17,8 @@ kind: Service
 metadata:
   name: health-wellbeing
   annotations:
-    prometheus.io/scrape: "true"
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '9090'
 spec:
   selector:
     app: health-wellbeing
