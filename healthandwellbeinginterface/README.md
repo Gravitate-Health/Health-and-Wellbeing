@@ -9,17 +9,26 @@ APIs generated using LoopBack 4 CLI with the  initial project layout.
 Table of contents
 -----------------
 
-* [Introduction](#introduction)
-* [Installation](#installation)
+- [Gravitate-Health G-Lens: Health And Wellbeing Interface.](#gravitate-health-g-lens-health-and-wellbeing-interface)
+  - [Table of contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
     - [Local installation](#local-installation)
+      - [Step 1: Clone the workspace](#step-1-clone-the-workspace)
+      - [Step 2: Install all the dependencies](#step-2-install-all-the-dependencies)
     - [Kubernetes deployment](#kubernetes-deployment)
-* [Usage](#usage)
-* [Known issues and limitations](#known-issues-and-limitations)
-* [Getting help](#getting-help)
-* [Contributing](#contributing)
-* [License](#license)
-* [Authors and history](#authors-and-history)
-* [Acknowledgments](#acknowledgments)
+  - [Usage](#usage)
+    - [Step 1: Run the application](#step-1-run-the-application)
+    - [Step 2: Access through the browser](#step-2-access-through-the-browser)
+    - [Step 3:  Different endpoints](#step-3--different-endpoints)
+  - [Known issues and limitations](#known-issues-and-limitations)
+  - [Getting help](#getting-help)
+    - [Loopback documentation](#loopback-documentation)
+    - [FHIR Model](#fhir-model)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Authors and history](#authors-and-history)
+  - [Acknowledgments](#acknowledgments)
 
 
 Introduction
@@ -59,6 +68,87 @@ npm ci
 ```
 
 ### Kubernetes deployment
+
+For the Kubernetes deployment first of all, the module must be compiled into a docker image and uploaded into a registry accessible by the Kubernetes cluster, the MongoDB is pulled from the official [docker registry](https://hub.docker.com/_/mongo).
+
+```bash
+git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
+cd Health-and-Wellbeing/healthandwellbeinginterface
+
+docker build . -t <docker-registry>/health-and-wellbeing-interface:latest
+docker push <docker-registry>/health-and-wellbeing-interface:latest
+```
+
+The name of the image is specified in the Health and Wellbeing file storage deployment file, [004_med-hw-interface-deployment.yaml](YAMLs/004_med-hw-interface-deployment.yaml). In that file you can also specify a registry secret in case the registry is behind authorization. Here is the documentation regarding [private registries](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
+
+Both the deployment files for the MongoDB and the Health and Wellbeing interface contain several environment variables which can be modified. These environment variables are the ones we used, but the configuration allows for much more.
+
+- Mongo environment variables
+
+| Environment Variable     | description                                   | default                                                 |
+|--------------------------|-----------------------------------------------|---------------------------------------------------------|
+| MONGO_SIDECAR_POD_LABELS | Labels to be applied to the sidecar container | role=mongo-health-wellbeing-interface,name=mongo-health-wellbeing-interface |
+| KUBE_NAMESPACE           | Namespace where the Mongo is deployed         | development                                             |
+
+- Health and Wellbeing file storage environment variables
+
+| Environment Variable | description                  | default                                |
+|----------------------|------------------------------|----------------------------------------|
+| DB_HOST              | Database host                | mongo-health-wellbeing-interface                 |
+| DB_URL               | Full database connection URL | mongodb://mongo-health-wellbeing-interface:27017 |
+
+The next step is to apply the Kubernetes files in the cluster, the services will be deployed in the development namespace. In case the namespace has not been created before you can create it with the following commands, or change the name in `metadata.namespace`:
+
+First we deploy the database:
+
+```bash
+kubectl create namespace <namespace>                         # Only if namespace not created and/or the current context
+kubectl config set-context --current --namespace=<namespace> # Only if namespace not created and/or the current context
+
+kubectl apply -f YAMLs/001_mongo-service-healthw-interface.yaml
+kubectl apply -f YAMLs/002_mongo-stateful-healthw-interface.yaml
+```
+
+Once the database is ready the Health and Wellbeing file storage can be deployed, you can check if the database is ready by running:
+
+```bash
+kubectl get pod | grep "mongo-health-wellbeing-interface"
+```
+```bash
+NAMESPACE            NAME                                         READY   STATUS    RESTARTS        AGE
+<namespace>          mongo-health-wellbeing-interface-2           2/2     Running   0               13d
+<namespace>          mongo-health-wellbeing-interface-0           2/2     Running   0               13d
+<namespace>          mongo-health-wellbeing-interface-1           2/2     Running   0               13d
+```
+
+If the status is running proceed with the Health and Wellbeing file storage deployment:
+
+```bash
+kubectl apply -f YAMLs/003_med-hw-interface-service.yaml
+kubectl apply -f YAMLs/004_med-hw-interface-deployment.yaml
+```
+
+You can check if the deployment is ready by running:
+
+```bash
+kubectl get pod | grep "health-wellbeing-interface"
+```
+```bash
+NAMESPACE            NAME                                                   READY   STATUS    RESTARTS        AGE
+<namespace>          health-wellbeing-interface-646f59f77c-4tt65            1/1     Running   0               21h
+```
+
+If the pod is ready you can access the service by other services in the same namespace by using the name of its Kubernetes service and the port (especified in [003_med-hw-interface-service](YAMLs/003_med-hw-interface-service.yaml)). You can also obtain both by running the following commands:
+
+```bash
+kubectl get svc | grep "health-wellbeing-interface"
+```
+```bash
+NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+health-wellbeing-interface          ClusterIP   10.152.183.219   <none>        3000/TCP            4d22h
+```
+
+The type of the service is _ClusterIP_ which means that the service can only be accessed from inside the cluster. Alternatively if the [Gateway](https://github.com/Gravitate-Health/Gateway) has been deployed, the service will be proxied to the outside of the cluster at `https://<DNS>/health-wellbeing-interface/`.
 
 Usage
 -----
