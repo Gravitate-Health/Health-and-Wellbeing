@@ -90,7 +90,7 @@ Both the deployment files for the MongoDB and the Health and Wellbeing interface
 | MONGO_SIDECAR_POD_LABELS | Labels to be applied to the sidecar container | role=mongo-health-wellbeing-interface,name=mongo-health-wellbeing-interface |
 | KUBE_NAMESPACE           | Namespace where the Mongo is deployed         | development                                             |
 
-- Health and Wellbeing file storage environment variables
+- Health and Wellbeing interface environment variables
 
 | Environment Variable | description                  | default                                |
 |----------------------|------------------------------|----------------------------------------|
@@ -109,7 +109,7 @@ kubectl apply -f YAMLs/001_mongo-service-healthw-interface.yaml
 kubectl apply -f YAMLs/002_mongo-stateful-healthw-interface.yaml
 ```
 
-Once the database is ready the Health and Wellbeing file storage can be deployed, you can check if the database is ready by running:
+Once the database is ready the Health and Wellbeing interface can be deployed, you can check if the database is ready by running:
 
 ```bash
 kubectl get pod | grep "mongo-health-wellbeing-interface"
@@ -121,7 +121,7 @@ NAMESPACE            NAME                                         READY   STATUS
 <namespace>          mongo-health-wellbeing-interface-1           2/2     Running   0               13d
 ```
 
-If the status is running proceed with the Health and Wellbeing file storage deployment:
+If the status is running proceed with the Health and Wellbeing interface deployment:
 
 ```bash
 kubectl apply -f YAMLs/003_med-hw-interface-service.yaml
@@ -138,7 +138,7 @@ NAMESPACE            NAME                                                   READ
 <namespace>          health-wellbeing-interface-646f59f77c-4tt65            1/1     Running   0               21h
 ```
 
-If the pod is ready you can access the service by other services in the same namespace by using the name of its Kubernetes service and the port (especified in [003_med-hw-interface-service](YAMLs/003_med-hw-interface-service.yaml)). You can also obtain both by running the following commands:
+If the pod is ready you can access the service by other services in the same namespace by using the name of its Kubernetes service and the port (especified in [003_med-hw-interface-service.yaml](YAMLs/003_med-hw-interface-service.yaml)). You can also obtain both by running the following commands:
 
 ```bash
 kubectl get svc | grep "health-wellbeing-interface"
@@ -148,7 +148,7 @@ NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   P
 health-wellbeing-interface          ClusterIP   10.152.183.219   <none>        3000/TCP            4d22h
 ```
 
-The type of the service is _ClusterIP_ which means that the service can only be accessed from inside the cluster. Alternatively if the [Gateway](https://github.com/Gravitate-Health/Gateway) has been deployed, the service will be proxied to the outside of the cluster at `https://<DNS>/health-wellbeing-interface/`.
+The type of the service is _ClusterIP_ which means that the service can only be accessed from inside the cluster. Moreover, if the Kubernetes cluster has a DNS manager other services can access services in other namespaces using the following URL: ```http://<service-name>.<namespace>.svc.cluster.local```. To learn more about the types of services and its uses in Kubernetes, here is the [official documentation](https://kubernetes.io/docs/concepts/services-networking/). Alternatively if the [Gateway](https://github.com/Gravitate-Health/Gateway) has been deployed, the service will be proxied to the outside of the cluster at `https://<DNS>/health-wellbeing-interface/`.
 
 Usage
 -----
