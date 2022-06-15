@@ -30,10 +30,8 @@ spec:
       - name: health-wellbeing
         image: localhost:32000/health-and-wellbeing:latest
         env:
-        - name: DB_HOST
-          value: "mongo-health-wellbeing"
         - name: DB_URL
-          value: "mongodb://mongo-health-wellbeing:27017/"
+          value: "mongodb://mongo-health-wellbeing:27017/hw_files"
         - name: TIME
           value: "1"
         ports:
