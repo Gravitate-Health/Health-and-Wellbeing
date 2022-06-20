@@ -30,11 +30,11 @@ Introduction
 This repository contains the configuration and deployment files needed for the "G-Lens: Health & Wellbeing" module.
 This module handles File Storage System, with an Attachment Model, following the HL7-FHIR interoperability standard.
 
-This repository is made up of an application generated using LoopBack 4 CLI with the initial project layout (healthandwellbeinginterface),
-and a File Storage System made with Express and GridFS (healthandwellbeing).
+This repository is made up of an application generated using LoopBack 4 CLI with the initial project layout (health-and-wellbeing-directory),
+and a File Storage System made with Express and GridFS (health-and-wellbeing).
 
-Therefore, the Health and Wellbeing module is composed of an interface (healthandwellbeinginterface) where the models 
-are stored, and a backend service of this interface, which is where the files are stored (healthandwellbeing).
+Therefore, the Health and Wellbeing module is composed of an interface (health-and-wellbeing-directory) where the models 
+are stored, and a backend service of this directory, which is where the files are stored (health-and-wellbeing).
 
 The usage and call to each one of the two services mentioned above must be made separately.
 
@@ -47,13 +47,13 @@ For the correct use of this module it is necessary to install each of the servic
 
 You can check the following guides for this purpose.
 
-- [File Storage README (healthandwellbeing)](./health-and-wellbeing-file-storage/README.md).
-- [Interface README (healthandwellbeinginterface)](./health-and-wellbeing-directory/README.md).
+- [File Storage README (health-and-wellbeing)](./health-and-wellbeing-file-storage/README.md).
+- [Directory README (health-and-wellbeing-directory)](./health-and-wellbeing-directory/README.md).
 
 Usage
 -----
 
-At the moment the services work separately, with healthandwellbeing being the File Storage System, and healthandwellbeinginterface being 
+At the moment the services work separately, with health-and-wellbeing being the File Storage System, and health-and-wellbeing-directory being 
 the API that stores the [FHIR models](https://build.fhir.org/datatypes.html#attachment) associated with the files.
 
 ### Run the application
@@ -75,7 +75,7 @@ To UPLOAD a file:
   ```
 - POST request to the Interface, adds a new FHIR Model to the G-Lens DB:
   ```bash
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings
   ```
 
 To DOWNLOAD a file:
@@ -85,7 +85,7 @@ To DOWNLOAD a file:
     https://gravitate-health.lst.tfo.upm.es/health-wellbeing/fileinfo/<filename>
   ```
   ```bash
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/<id>
   ```
 
 Known issues and limitations
