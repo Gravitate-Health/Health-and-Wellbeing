@@ -12,16 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: mongo-health-wellbeing-interface
-  labels:
-    name: mongo-health-wellbeing-interface
+  name: health-wellbeing-directory
 spec:
+  replicas: 1
   selector:
-    role: mongo-health-wellbeing-interface
-  ports:
-  - port: 27017
-    targetPort: 27017
-  type: ClusterIP
+    matchLabels:
+      app: health-wellbeing-directory
+  template:
+    metadata:
+      labels:
+        app: health-wellbeing-directory
+    spec:
+      containers:
+      - name: health-wellbeing-directory
+        image: localhost:32000/health-and-wellbeing-directory:latest
+        env:
+        - name: DB_HOST
+          value: "mongo-health-wellbeing-directory"
+        - name: DB_URL
+          value: "mongodb://mongo-health-wellbeing-directory:27017/"
+        - name: TIME
+          value: "1"
+        ports:
+        - containerPort: 3000

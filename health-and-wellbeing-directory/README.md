@@ -1,5 +1,5 @@
 
-Gravitate-Health G-Lens: Health And Wellbeing Interface.
+Gravitate-Health G-Lens: Health And Wellbeing Directory.
 =================================================
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -9,7 +9,7 @@ APIs generated using LoopBack 4 CLI with the  initial project layout.
 Table of contents
 -----------------
 
-- [Gravitate-Health G-Lens: Health And Wellbeing Interface.](#gravitate-health-g-lens-health-and-wellbeing-interface)
+- [Gravitate-Health G-Lens: Health And Wellbeing Directory.](#gravitate-health-g-lens-health-and-wellbeing-directory)
   - [Table of contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Installation](#installation)
@@ -33,7 +33,7 @@ Table of contents
 
 Introduction
 ------------
-This repository contains the configuration and deployment files needed for the interface of the "G-Lens: Health And Wellbeing" module.
+This repository contains the configuration and deployment files needed for the directory of the "G-Lens: Health And Wellbeing" module.
 This module handles medication information models, following the HL7-FHIR interoperability standard.
 
 This application is generated using LoopBack 4 CLI with the initial project layout.
@@ -52,7 +52,7 @@ git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
 
 ```bash
 cd Health-and-Wellbeing
-cd healthandwellbeininterface
+cd health-and-wellbeing-directory
 ```
 
 By default, dependencies were installed when this application was generated.
@@ -73,29 +73,29 @@ For the Kubernetes deployment first of all, the module must be compiled into a d
 
 ```bash
 git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
-cd Health-and-Wellbeing/healthandwellbeinginterface
+cd Health-and-Wellbeing/health-and-wellbeing-directory
 
-docker build . -t <docker-registry>/health-and-wellbeing-interface:latest
-docker push <docker-registry>/health-and-wellbeing-interface:latest
+docker build . -t <docker-registry>/health-and-wellbeing-directory:latest
+docker push <docker-registry>/health-and-wellbeing-directory:latest
 ```
 
-The name of the image is specified in the Health and Wellbeing file storage deployment file, [004_med-hw-interface-deployment.yaml](YAMLs/004_med-hw-interface-deployment.yaml). In that file you can also specify a registry secret in case the registry is behind authorization. Here is the documentation regarding [private registries](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
+The name of the image is specified in the Health and Wellbeing file storage deployment file, [004_med-hw-directory-deployment.yaml](YAMLs/004_med-hw-directory-deployment.yaml). In that file you can also specify a registry secret in case the registry is behind authorization. Here is the documentation regarding [private registries](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
-Both the deployment files for the MongoDB and the Health and Wellbeing interface contain several environment variables which can be modified. These environment variables are the ones we used, but the configuration allows for much more.
+Both the deployment files for the MongoDB and the Health and Wellbeing directory contain several environment variables which can be modified. These environment variables are the ones we used, but the configuration allows for much more.
 
 - Mongo environment variables
 
 | Environment Variable     | description                                   | default                                                 |
 |--------------------------|-----------------------------------------------|---------------------------------------------------------|
-| MONGO_SIDECAR_POD_LABELS | Labels to be applied to the sidecar container | role=mongo-health-wellbeing-interface,name=mongo-health-wellbeing-interface |
+| MONGO_SIDECAR_POD_LABELS | Labels to be applied to the sidecar container | role=mongo-health-wellbeing-directory,name=mongo-health-wellbeing-directory |
 | KUBE_NAMESPACE           | Namespace where the Mongo is deployed         | development                                             |
 
-- Health and Wellbeing interface environment variables
+- Health and Wellbeing directory environment variables
 
 | Environment Variable | description                  | default                                |
 |----------------------|------------------------------|----------------------------------------|
-| DB_HOST              | Database host                | mongo-health-wellbeing-interface                 |
-| DB_URL               | Full database connection URL | mongodb://mongo-health-wellbeing-interface:27017 |
+| DB_HOST              | Database host                | mongo-health-wellbeing-directory                 |
+| DB_URL               | Full database connection URL | mongodb://mongo-health-wellbeing-directory:27017 |
 
 The next step is to apply the Kubernetes files in the cluster, the services will be deployed in the development namespace. In case the namespace has not been created before you can create it with the following commands, or change the name in `metadata.namespace`:
 
@@ -105,50 +105,50 @@ First we deploy the database:
 kubectl create namespace <namespace>                         # Only if namespace not created and/or the current context
 kubectl config set-context --current --namespace=<namespace> # Only if namespace not created and/or the current context
 
-kubectl apply -f YAMLs/001_mongo-service-healthw-interface.yaml
-kubectl apply -f YAMLs/002_mongo-stateful-healthw-interface.yaml
+kubectl apply -f YAMLs/001_mongo-service-healthw-directory.yaml
+kubectl apply -f YAMLs/002_mongo-stateful-healthw-directory.yaml
 ```
 
-Once the database is ready the Health and Wellbeing interface can be deployed, you can check if the database is ready by running:
+Once the database is ready the Health and Wellbeing directory can be deployed, you can check if the database is ready by running:
 
 ```bash
-kubectl get pod | grep "mongo-health-wellbeing-interface"
+kubectl get pod | grep "mongo-health-wellbeing-directory"
 ```
 ```bash
 NAMESPACE            NAME                                         READY   STATUS    RESTARTS        AGE
-<namespace>          mongo-health-wellbeing-interface-2           2/2     Running   0               13d
-<namespace>          mongo-health-wellbeing-interface-0           2/2     Running   0               13d
-<namespace>          mongo-health-wellbeing-interface-1           2/2     Running   0               13d
+<namespace>          mongo-health-wellbeing-directory-2           2/2     Running   0               13d
+<namespace>          mongo-health-wellbeing-directory-0           2/2     Running   0               13d
+<namespace>          mongo-health-wellbeing-directory-1           2/2     Running   0               13d
 ```
 
-If the status is running proceed with the Health and Wellbeing interface deployment:
+If the status is running proceed with the Health and Wellbeing directory deployment:
 
 ```bash
-kubectl apply -f YAMLs/003_med-hw-interface-service.yaml
-kubectl apply -f YAMLs/004_med-hw-interface-deployment.yaml
+kubectl apply -f YAMLs/003_med-hw-directory-service.yaml
+kubectl apply -f YAMLs/004_med-hw-directory-deployment.yaml
 ```
 
 You can check if the deployment is ready by running:
 
 ```bash
-kubectl get pod | grep "health-wellbeing-interface"
+kubectl get pod | grep "health-wellbeing-directory"
 ```
 ```bash
 NAMESPACE            NAME                                                   READY   STATUS    RESTARTS        AGE
-<namespace>          health-wellbeing-interface-646f59f77c-4tt65            1/1     Running   0               21h
+<namespace>          health-wellbeing-directory-646f59f77c-4tt65            1/1     Running   0               21h
 ```
 
-If the pod is ready you can access the service by other services in the same namespace by using the name of its Kubernetes service and the port (especified in [003_med-hw-interface-service.yaml](YAMLs/003_med-hw-interface-service.yaml)). You can also obtain both by running the following commands:
+If the pod is ready you can access the service by other services in the same namespace by using the name of its Kubernetes service and the port (especified in [003_med-hw-directory-service.yaml](YAMLs/003_med-hw-directory-service.yaml)). You can also obtain both by running the following commands:
 
 ```bash
-kubectl get svc | grep "health-wellbeing-interface"
+kubectl get svc | grep "health-wellbeing-directory"
 ```
 ```bash
 NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
-health-wellbeing-interface          ClusterIP   10.152.183.219   <none>        3000/TCP            4d22h
+health-wellbeing-directory          ClusterIP   10.152.183.219   <none>        3000/TCP            4d22h
 ```
 
-The type of the service is _ClusterIP_ which means that the service can only be accessed from inside the cluster. Moreover, if the Kubernetes cluster has a DNS manager other services can access services in other namespaces using the following URL: ```http://<service-name>.<namespace>.svc.cluster.local```. To learn more about the types of services and its uses in Kubernetes, here is the [official documentation](https://kubernetes.io/docs/concepts/services-networking/). Alternatively if the [Gateway](https://github.com/Gravitate-Health/Gateway) has been deployed, the service will be proxied to the outside of the cluster at `https://<DNS>/health-wellbeing-interface/`.
+The type of the service is _ClusterIP_ which means that the service can only be accessed from inside the cluster. Moreover, if the Kubernetes cluster has a DNS manager other services can access services in other namespaces using the following URL: ```http://<service-name>.<namespace>.svc.cluster.local```. To learn more about the types of services and its uses in Kubernetes, here is the [official documentation](https://kubernetes.io/docs/concepts/services-networking/). Alternatively if the [Gateway](https://github.com/Gravitate-Health/Gateway) has been deployed, the service will be proxied to the outside of the cluster at `https://<DNS>/health-wellbeing-directory/`.
 
 Usage
 -----
@@ -166,35 +166,35 @@ Some of the most useful enpoints are listed below:
 
 POST request, adds a new object to the G-Lens DB: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings
 
 GET request, returns the count of the objects stored in the DB:
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/count
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/count
 
 GET request, returns the list of the objects stored in the DB: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings
 
 PATCH request, updates the object that matches the body of the request: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings
 
 GET request, returns a single object with ID <id>: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/<id>
 
 PATCH request, updates the object with ID <id>: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/<id>
 
 PUT request, replaces the object with ID <id>: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/<id>
 
 DEL request, deletes the object with ID <id>: 
 
-    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-interface/health-and-wellbeings/<id>
+    https://gravitate-health.lst.tfo.upm.es/health-wellbeing-directory/health-and-wellbeings/<id>
 
 
 For further details check the [openapi](openapi.json)

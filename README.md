@@ -47,8 +47,8 @@ For the correct use of this module it is necessary to install each of the servic
 
 You can check the following guides for this purpose.
 
-- [File Storage README (healthandwellbeing)](./healthandwellbeing/README.md).
-- [Interface README (healthandwellbeinginterface)](./healthandwellbeinginterface/README.md).
+- [File Storage README (healthandwellbeing)](./health-and-wellbeing-file-storage/README.md).
+- [Interface README (healthandwellbeinginterface)](./health-and-wellbeing-directory/README.md).
 
 Usage
 -----

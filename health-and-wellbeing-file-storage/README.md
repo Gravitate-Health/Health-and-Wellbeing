@@ -73,7 +73,7 @@ For the Kubernetes deployment first of all, the module must be compiled into a d
 
 ```bash
 git clone https://github.com/Gravitate-Health/Health-and-Wellbeing.git
-cd Health-and-Wellbeing/healthandwellbeing
+cd Health-and-Wellbeing/health-and-wellbeing-file-storage
 
 docker build . -t <docker-registry>/health-and-wellbeing:latest
 docker push <docker-registry>/health-and-wellbeing:latest

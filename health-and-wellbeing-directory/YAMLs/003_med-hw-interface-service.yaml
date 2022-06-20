@@ -15,13 +15,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: health-wellbeing-interface
+  name: health-wellbeing-directory
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port:   '9090'
+    prometheus.io/port:   '3000'
 spec:
   selector:
-    app: health-wellbeing-interface
+    app: health-wellbeing-directory
   ports:
   - protocol: TCP
     port: 3000

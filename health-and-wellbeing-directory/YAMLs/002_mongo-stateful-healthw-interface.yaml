@@ -15,18 +15,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo-health-wellbeing-interface
+  name: mongo-health-wellbeing-directory
 spec:
   selector:
     matchLabels:
-      role: mongo-health-wellbeing-interface
-  serviceName: "mongo-health-wellbeing-interface"
+      role: mongo-health-wellbeing-directory
+  serviceName: "mongo-health-wellbeing-directory"
   replicas: 3
   template:
     metadata:
       labels:
-        name: mongo-health-wellbeing-interface
-        role: mongo-health-wellbeing-interface
+        name: mongo-health-wellbeing-directory
+        role: mongo-health-wellbeing-directory
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -43,18 +43,18 @@ spec:
         ports:
         - containerPort: 27017
         volumeMounts:
-        - name: mongo-health-wellbeing-interface-persistent-storage
+        - name: mongo-health-wellbeing-directory-persistent-storage
           mountPath: /data/db
       - name: mongo-sidecar
         image: cvallance/mongo-k8s-sidecar:latest
         env:
         - name: MONGO_SIDECAR_POD_LABELS
-          value: "role=mongo-health-wellbeing-interface,name=mongo-health-wellbeing-interface"
+          value: "role=mongo-health-wellbeing-directory,name=mongo-health-wellbeing-directory"
         - name: KUBE_NAMESPACE
           value: development
   volumeClaimTemplates:
     - metadata:
-        name: mongo-health-wellbeing-interface-persistent-storage
+        name: mongo-health-wellbeing-directory-persistent-storage
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
