@@ -16,6 +16,8 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo-health-wellbeing-directory
+  annotations:
+    prometheus.io/scrape: "true"
 spec:
   selector:
     matchLabels:
@@ -29,6 +31,7 @@ spec:
         role: mongo-health-wellbeing-directory
     spec:
       terminationGracePeriodSeconds: 10
+      serviceAccount: mongo-account
       containers:
       - name: mongo-db
         image: mongo:5.0.8
@@ -50,8 +53,6 @@ spec:
         env:
         - name: MONGO_SIDECAR_POD_LABELS
           value: "role=mongo-health-wellbeing-directory,name=mongo-health-wellbeing-directory"
-        - name: KUBE_NAMESPACE
-          value: development
   volumeClaimTemplates:
     - metadata:
         name: mongo-health-wellbeing-directory-persistent-storage
@@ -59,4 +60,4 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 500Mi
+            storage: 1Gi

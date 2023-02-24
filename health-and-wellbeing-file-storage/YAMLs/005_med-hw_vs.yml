@@ -1,4 +1,4 @@
-# Copyright 2022 Universidad Politécnica de Madrid
+# Copyright 2023 Universidad Politécnica de Madrid
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,27 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
   name: health-wellbeing
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: health-wellbeing
-  template:
-    metadata:
-      labels:
-        app: health-wellbeing
-    spec:
-      containers:
-      - name: health-wellbeing
-        image: localhost:32000/health-and-wellbeing:latest
-        env:
-        - name: DB_URL
-          value: "mongodb://mongo-health-wellbeing:27017/hw_files"
-        - name: TIME
-          value: "1"
-        ports:
-        - containerPort: 3000
+  hosts:
+  - "*"
+  gateways:
+  - gh-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /fileinfo
+    - uri:
+        prefix: /upload
+    route:
+    - destination:
+        host: health-wellbeing.default.svc.cluster.local
+        port:
+          number: 3000
